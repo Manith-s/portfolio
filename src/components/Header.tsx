@@ -1,73 +1,120 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
-  const navLinks = [
-    { name: "About", path: "/about" },
-    { name: "Projects", path: "/projects" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowMenu(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
-      <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-full bg-foreground flex items-center justify-center text-background font-bold text-sm">
-            BS
+    <>
+      {/* Logo - Always visible */}
+      <div className="fixed top-6 left-6 z-50 flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-foreground rounded flex items-center justify-center">
+            <span className="text-background font-bold text-sm">cb</span>
           </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-xs text-muted-foreground">© coded by</span>
-            <span className="font-semibold">Bettina Sosa</span>
-          </div>
+          <span className="text-sm">© coded by Bettina</span>
         </Link>
+      </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className="text-sm font-medium hover:text-accent transition-colors relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full" />
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background border-t border-border md:hidden">
-            <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-lg font-medium hover:text-accent transition-colors py-2"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+      {/* Desktop Navigation - Always visible at top */}
+      <nav className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 items-center gap-8">
+        <Link to="/about" className="hover:text-accent transition-colors">About</Link>
+        <Link to="/projects" className="hover:text-accent transition-colors">Projects</Link>
+        <Link to="/gallery" className="hover:text-accent transition-colors">Gallery</Link>
+        <Link to="/blog" className="hover:text-accent transition-colors">Blog</Link>
       </nav>
-    </header>
+
+      {/* Contact Link - Always visible top right */}
+      <Link 
+        to="/contact" 
+        className="hidden md:flex fixed top-6 right-6 z-50 hover:text-accent transition-colors items-center gap-1"
+      >
+        Contact
+        <span className="text-xs">↗</span>
+      </Link>
+
+      {/* MENU Button - appears on scroll */}
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className={`fixed top-6 right-6 z-50 px-8 py-3 rounded-full font-medium transition-all duration-300 ${
+          showMenu 
+            ? 'translate-x-0 opacity-100' 
+            : 'translate-x-20 opacity-0 pointer-events-none'
+        }`}
+        style={{
+          background: 'linear-gradient(135deg, #E879F9 0%, #C084FC 100%)',
+          color: 'white'
+        }}
+        aria-label="Toggle menu"
+      >
+        {isMenuOpen ? 'CLOSE' : 'MENU'}
+      </button>
+
+      {/* Full Screen Menu Overlay */}
+      {isMenuOpen && (
+        <div 
+          className="fixed inset-0 z-40 flex items-center justify-center animate-fade-in"
+          style={{
+            background: 'linear-gradient(135deg, #E879F9 0%, #C084FC 100%)'
+          }}
+        >
+          <nav className="flex flex-col items-center gap-8 text-white">
+            <Link 
+              to="/" 
+              className="text-6xl md:text-8xl font-light italic hover:opacity-70 transition-opacity"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              home
+            </Link>
+            <Link 
+              to="/about" 
+              className="text-6xl md:text-8xl font-light italic hover:opacity-70 transition-opacity"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              about
+            </Link>
+            <Link 
+              to="/projects" 
+              className="text-6xl md:text-8xl font-light italic hover:opacity-70 transition-opacity"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              projects
+            </Link>
+            <Link 
+              to="/gallery" 
+              className="text-6xl md:text-8xl font-light italic hover:opacity-70 transition-opacity"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              gallery
+            </Link>
+            <Link 
+              to="/blog" 
+              className="text-6xl md:text-8xl font-light italic hover:opacity-70 transition-opacity"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              blog
+            </Link>
+            <Link 
+              to="/contact" 
+              className="text-6xl md:text-8xl font-light italic hover:opacity-70 transition-opacity"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              contact
+            </Link>
+          </nav>
+        </div>
+      )}
+    </>
   );
 };
 

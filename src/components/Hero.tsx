@@ -4,19 +4,28 @@ import { useEffect, useState } from "react";
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isAnimating, setIsAnimating] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight;
+      const progress = Math.min(scrollY / heroHeight, 1);
+      setScrollProgress(progress);
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
     
-    // Start animation after a brief delay
     const timer = setTimeout(() => setIsAnimating(true), 500);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
       clearTimeout(timer);
     };
   }, []);
@@ -45,34 +54,46 @@ const Hero = () => {
         {/* Animated scattered text */}
         <div className={`text-[clamp(3rem,10vw,8rem)] font-black leading-[0.95] tracking-tight transition-all duration-1000 ${isAnimating ? 'opacity-100' : 'opacity-0'}`}>
           <div className="relative h-[clamp(6rem,20vw,16rem)]">
-            {text1.split('').map((char, index) => (
-              <span
-                key={`text1-${index}`}
-                className="absolute inline-block animate-float-letter"
-                style={{
-                  animationDelay: `${index * 0.05}s`,
-                  left: `${(index / text1.length) * 70}%`,
-                  top: `${Math.sin(index) * 20}%`,
-                }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </span>
-            ))}
+            {text1.split('').map((char, index) => {
+              const randomX = Math.sin(index * 2.5) * 100;
+              const randomY = Math.cos(index * 1.8) * 150;
+              
+              return (
+                <span
+                  key={`text1-${index}`}
+                  className="absolute inline-block transition-all duration-700 ease-out"
+                  style={{
+                    left: `${(index / text1.length) * 70}%`,
+                    top: `${Math.sin(index) * 20}%`,
+                    transform: `translate(${randomX * scrollProgress}px, ${randomY * scrollProgress}px) rotate(${scrollProgress * (index % 2 ? 45 : -45)}deg)`,
+                    opacity: 1 - scrollProgress * 0.3,
+                  }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              );
+            })}
           </div>
           <div className="relative h-[clamp(6rem,20vw,16rem)]">
-            {text2.split('').map((char, index) => (
-              <span
-                key={`text2-${index}`}
-                className="absolute inline-block animate-float-letter"
-                style={{
-                  animationDelay: `${(index + text1.length) * 0.05}s`,
-                  left: `${(index / text2.length) * 50}%`,
-                  top: `${Math.cos(index) * 20 + 20}%`,
-                }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </span>
-            ))}
+            {text2.split('').map((char, index) => {
+              const randomX = Math.cos(index * 2.2) * 120;
+              const randomY = Math.sin(index * 1.5) * 180;
+              
+              return (
+                <span
+                  key={`text2-${index}`}
+                  className="absolute inline-block transition-all duration-700 ease-out"
+                  style={{
+                    left: `${(index / text2.length) * 50}%`,
+                    top: `${Math.cos(index) * 20 + 20}%`,
+                    transform: `translate(${randomX * scrollProgress}px, ${randomY * scrollProgress}px) rotate(${scrollProgress * (index % 2 ? -45 : 45)}deg)`,
+                    opacity: 1 - scrollProgress * 0.3,
+                  }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              );
+            })}
           </div>
         </div>
       </div>

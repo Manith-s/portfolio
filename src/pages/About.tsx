@@ -3,25 +3,39 @@ import Footer from "@/components/Footer";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className="min-h-screen"
+      style={{
+        background: 'linear-gradient(135deg, #E879F9 0%, #C084FC 100%)'
+      }}
+    >
       <Header />
-      <main className="pt-24 pb-16 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="text-6xl font-bold mb-12">About Me</h1>
-          
-          <div className="space-y-6 text-lg leading-relaxed">
-            <p>
-              I'm a software engineer with a passion for innovation and cutting-edge technology.
-            </p>
-            <p>
-              My work focuses on the intersection of art, design, and software. I believe that these disciplines can be combined to create truly transformative experiences that push the boundaries of what's possible.
-            </p>
-            <p>
-              Currently, I'm the founding full stack software engineer at Catapult, a DeFi startup where I'm building the future of decentralized finance.
-            </p>
-            <p>
-              Throughout my career, my projects have received multiple awards, and I'm constantly exploring new and innovative ways to use technology to make a positive impact on the world.
-            </p>
+      <main className="pt-32 pb-16 px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            <div>
+              <h1 className="text-8xl font-bold mb-12" style={{ color: '#000' }}>
+                I'm Bettina
+              </h1>
+              
+              <div className="w-96 h-96 rounded-full overflow-hidden bg-muted">
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                  Profile Image
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-8 text-xl leading-relaxed" style={{ color: '#000' }}>
+              <p>
+                A software engineer and designer with a passion for innovation and cutting-edge technology.
+              </p>
+              <p>
+                I have a strong track record of building and deploying successful products.
+              </p>
+              <p>
+                At <strong>Sojo</strong>, I was the founding full-stack engineer, responsible for the design, development, and deployment of the company's core platform. I built a scalable and user-friendly platform that enabled users to easily manage their wardrobe and reduce textile waste.
+              </p>
+            </div>
           </div>
         </div>
       </main>
