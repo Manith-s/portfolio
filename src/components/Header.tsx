@@ -20,9 +20,9 @@ const Header = () => {
       <div className="fixed top-6 left-6 z-50 flex items-center gap-2">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 bg-foreground rounded flex items-center justify-center">
-            <span className="text-background font-bold text-sm">cb</span>
+            <span className="text-background font-bold text-sm">MS</span>
           </div>
-          <span className="text-sm">© coded by Bettina</span>
+          <span className="text-sm">© coded by Manith</span>
         </Link>
       </div>
 

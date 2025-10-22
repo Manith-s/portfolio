@@ -38,6 +38,9 @@ const Hero = () => {
   const text1 = "Creativity is";
   const text2 = "my craft";
 
+  // Normalize scroll progress to 0-1 over 3 viewport heights
+  const normalizedProgress = Math.min(scrollProgress * 3, 1);
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden">
       {/* Blue dot cursor follower */}
@@ -51,22 +54,22 @@ const Hero = () => {
       />
 
       <div className="max-w-7xl w-full relative">
-        {/* Animated scattered text */}
-        <div className={`text-[clamp(3rem,10vw,8rem)] font-black leading-[0.95] tracking-tight transition-all duration-1000 ${isAnimating ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="relative h-[clamp(6rem,20vw,16rem)]">
+        {/* Animated text that starts straight and jumbles on scroll */}
+        <div className={`text-[clamp(3rem,10vw,8rem)] font-black leading-tight tracking-tight transition-all duration-1000 ${isAnimating ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="relative min-h-[clamp(3rem,10vw,8rem)] mb-4">
             {text1.split('').map((char, index) => {
-              const randomX = Math.sin(index * 2.5) * 100;
-              const randomY = Math.cos(index * 1.8) * 150;
+              const randomX = Math.sin(index * 2.5) * 150;
+              const randomY = Math.cos(index * 1.8) * 200;
+              const baseLeft = index * 8; // Characters positioned side by side
               
               return (
                 <span
                   key={`text1-${index}`}
-                  className="absolute inline-block transition-all duration-700 ease-out"
+                  className="inline-block transition-all duration-700 ease-out"
                   style={{
-                    left: `${(index / text1.length) * 70}%`,
-                    top: `${Math.sin(index) * 20}%`,
-                    transform: `translate(${randomX * scrollProgress}px, ${randomY * scrollProgress}px) rotate(${scrollProgress * (index % 2 ? 45 : -45)}deg)`,
-                    opacity: 1 - scrollProgress * 0.3,
+                    transform: `translate(${randomX * normalizedProgress}px, ${randomY * normalizedProgress}px) rotate(${normalizedProgress * (index % 2 ? 45 : -45)}deg)`,
+                    opacity: 1 - normalizedProgress * 0.3,
+                    marginLeft: scrollProgress > 0 ? 0 : undefined,
                   }}
                 >
                   {char === ' ' ? '\u00A0' : char}
@@ -74,20 +77,18 @@ const Hero = () => {
               );
             })}
           </div>
-          <div className="relative h-[clamp(6rem,20vw,16rem)]">
+          <div className="relative min-h-[clamp(3rem,10vw,8rem)]">
             {text2.split('').map((char, index) => {
-              const randomX = Math.cos(index * 2.2) * 120;
-              const randomY = Math.sin(index * 1.5) * 180;
+              const randomX = Math.cos(index * 2.2) * 180;
+              const randomY = Math.sin(index * 1.5) * 220;
               
               return (
                 <span
                   key={`text2-${index}`}
-                  className="absolute inline-block transition-all duration-700 ease-out"
+                  className="inline-block transition-all duration-700 ease-out"
                   style={{
-                    left: `${(index / text2.length) * 50}%`,
-                    top: `${Math.cos(index) * 20 + 20}%`,
-                    transform: `translate(${randomX * scrollProgress}px, ${randomY * scrollProgress}px) rotate(${scrollProgress * (index % 2 ? -45 : 45)}deg)`,
-                    opacity: 1 - scrollProgress * 0.3,
+                    transform: `translate(${randomX * normalizedProgress}px, ${randomY * normalizedProgress}px) rotate(${normalizedProgress * (index % 2 ? -45 : 45)}deg)`,
+                    opacity: 1 - normalizedProgress * 0.3,
                   }}
                 >
                   {char === ' ' ? '\u00A0' : char}

@@ -20,18 +20,18 @@ const Contact = () => {
 
             <div className="pt-8">
               <a
-                href="mailto:bettinasosarohl@gmail.com"
+                href="mailto:shashidharmanith@gmail.com"
                 className="text-lg transition-colors inline-block px-6 py-3 rounded-full border"
                 style={{ color: 'white', borderColor: 'white' }}
               >
-                bettinasosarohl@gmail.com
+                shashidharmanith@gmail.com
               </a>
             </div>
 
             <div className="pt-16 space-y-2" style={{ color: '#666' }}>
-              <p>AI/LLM enthusiast | Cutting-edge tech</p>
-              <p>advocate | Web3 builder | Passionate</p>
-              <p>about using technology to make the world</p>
+              <p>Database whisperer | Backend architect</p>
+              <p>Data systems engineer | Fascinated by</p>
+              <p>elegant complexity that scales</p>
             </div>
           </div>
 

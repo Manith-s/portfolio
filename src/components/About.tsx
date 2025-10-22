@@ -8,19 +8,16 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-16 items-start">
           <div className="space-y-6 text-xl leading-relaxed">
             <p>
-              A software engineer with a passion for innovation and cutting-edge technology.
+              A software engineer and data scientist obsessed with building systems that make databases faster, models smarter, and complex problems surprisingly simple.
             </p>
             <p>
-              Particularly interested in the intersection of art, design, and software. I believe that these disciplines can be combined to create truly transformative experiences.
+              Specializing in the intersection of backend architecture, data engineering, and AI. I architect solutions that transform abstract problems into elegant, scalable systems.
             </p>
           </div>
 
           <div className="space-y-6 text-lg leading-relaxed">
             <p>
-              Currently the founding full stack software engineer @Catapult a DeFi startup.
-            </p>
-            <p>
-              My projects have received multiple awards in the past, and I am always looking for new and innovative ways to use my skills to make a positive impact on the world.
+              My work spans financial infrastructure, microservices orchestration, and intelligent data systems—where every optimization is a small victory against entropy.
             </p>
 
             <div className="pt-8">
