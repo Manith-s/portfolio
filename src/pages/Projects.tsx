@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CursorFollower from "@/components/CursorFollower";
 import { Link } from "react-router-dom";
+import { Database, TrendingUp, Droplets, Calendar } from "lucide-react";
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
@@ -14,6 +16,7 @@ const Projects = () => {
       year: "2024",
       category: "Backend / AI",
       slug: "sql-query-engine",
+      icon: Database,
     },
     {
       id: 2,
@@ -22,6 +25,7 @@ const Projects = () => {
       year: "2021",
       category: "Machine Learning",
       slug: "cryptoforecast",
+      icon: TrendingUp,
     },
     {
       id: 3,
@@ -30,6 +34,7 @@ const Projects = () => {
       year: "2022",
       category: "IoT / ML",
       slug: "hydroyield",
+      icon: Droplets,
     },
     {
       id: 4,
@@ -38,11 +43,13 @@ const Projects = () => {
       year: "2025",
       category: "Full Stack",
       slug: "university-scheduler",
+      icon: Calendar,
     },
   ];
 
   return (
     <div className="min-h-screen bg-background">
+      <CursorFollower />
       <Header />
       <main className="pt-24 pb-16 px-6">
         <div className="container mx-auto max-w-6xl">
@@ -69,10 +76,11 @@ const Projects = () => {
                   </div>
                   
                   {hoveredProject === project.id && (
-                    <div className="aspect-video w-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center animate-fade-in">
-                      <div className="text-center">
-                        <div className="text-4xl font-black opacity-50">{project.id}</div>
-                      </div>
+                    <div className="aspect-video w-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center animate-fade-in shadow-xl">
+                      {(() => {
+                        const Icon = project.icon;
+                        return <Icon className="w-24 h-24 text-primary opacity-70" strokeWidth={1.5} />;
+                      })()}
                     </div>
                   )}
                 </div>

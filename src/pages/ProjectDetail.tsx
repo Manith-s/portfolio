@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CursorFollower from "@/components/CursorFollower";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -99,6 +100,7 @@ const ProjectDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <CursorFollower />
       <Header />
       <main className="pt-32 pb-16 px-6">
         <div className="container mx-auto max-w-4xl">

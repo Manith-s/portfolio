@@ -4,11 +4,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const getCurrentTime = () => {
-    return new Date().toLocaleTimeString('en-GB', { 
+    return new Date().toLocaleTimeString('en-US', { 
       hour: '2-digit', 
       minute: '2-digit', 
       second: '2-digit',
-      timeZone: 'Europe/London'
+      timeZone: 'America/New_York'
     });
   };
 
@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="mb-12 text-center max-w-3xl mx-auto">
           <p className="text-muted-foreground leading-relaxed">
-            AI/LLM enthusiast | Cutting-edge tech advocate | Web3 builder | Passionate about using technology to make the world a better place.
+            Database whisperer | Backend architect | Data systems engineer | Fascinated by the elegant complexity of systems that scale and the art of making difficult problems look easy.
           </p>
         </div>
 
@@ -29,23 +29,14 @@ const Footer = () => {
 
           <div>
             <h3 className="font-semibold mb-2">Timezone</h3>
-            <p className="text-muted-foreground">{getCurrentTime()} UK (GMT+1)</p>
+            <p className="text-muted-foreground">{getCurrentTime()} EST (GMT-5)</p>
           </div>
 
           <div>
             <h3 className="font-semibold mb-2">Socials</h3>
             <div className="flex gap-4">
               <a
-                href="https://twitter.com/bettysrohl"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="https://github.com/bettinasosa"
+                href="https://github.com/Manith-s"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-accent transition-colors"
@@ -54,7 +45,7 @@ const Footer = () => {
                 <Github className="w-5 h-5" />
               </a>
               <a
-                href="https://www.linkedin.com/in/bettina-sosa/"
+                href="https://www.linkedin.com/in/manith-shashidhar-9462181ba/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-accent transition-colors"

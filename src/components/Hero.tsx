@@ -2,15 +2,10 @@ import { ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isAnimating, setIsAnimating] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const heroHeight = window.innerHeight;
@@ -18,13 +13,11 @@ const Hero = () => {
       setScrollProgress(progress);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("scroll", handleScroll);
     
     const timer = setTimeout(() => setIsAnimating(true), 500);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(timer);
     };
@@ -43,16 +36,6 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden">
-      {/* Blue dot cursor follower */}
-      <div
-        className="fixed w-4 h-4 bg-accent rounded-full pointer-events-none z-50 transition-transform duration-100"
-        style={{
-          left: `${mousePosition.x}px`,
-          top: `${mousePosition.y}px`,
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
-
       <div className="max-w-7xl w-full relative">
         {/* Animated text that starts straight and jumbles on scroll */}
         <div className={`text-[clamp(3rem,10vw,8rem)] font-black leading-tight tracking-tight transition-all duration-1000 ${isAnimating ? 'opacity-100' : 'opacity-0'}`}>
